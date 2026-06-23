@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Informática - Tema 4 (Avatar) - UCSE</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/dashicons.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Paleta de colores Temática Avatar: The Last Airbender */
+      :root {
+        --ucse-azul-oscuro: #b84318; /* Rojo Fuego */
+        --ucse-amarillo: #f4d35e; /* Amarillo Aire */
+        --ucse-cian: #48bfe3; /* Celeste Agua */
+        --ucse-rosa: #386641; /* Verde Tierra */
+        --ucse-blanco: #ffffff;
+        --ucse-negro: #000000;
+      }
+
+      /* Animaciones */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+      @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      @keyframes shimmer {
+        0% { background-position: -1000px 0; }
+        100% { background-position: 1000px 0; }
+      }
+
+      /* Estilos personalizados para la materia */
+      .header-ucse {
+        background: linear-gradient(135deg, var(--ucse-azul-oscuro) 0%, #e06e36 100%);
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 0.8s ease-out;
+        position: relative;
+        overflow: hidden;
+      }
+      .header-ucse::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: rotate 20s linear infinite;
+      }
+      .header-ucse .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+        animation: slideInLeft 0.6s ease-out;
+      }
+      .header-ucse .logo img {
+        height: 80px;
+        border-radius: 50%;
+        box-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .header-ucse .logo img:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 4px 20px rgba(244, 211, 94, 0.6);
+      }
+      .header-ucse h1 {
+        margin: 0;
+        font-size: 2.5em;
+        font-weight: 300;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 1;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .header-ucse .subtitle {
+        font-size: 1.2em;
+        opacity: 0.9;
+        margin-top: 5px;
+        position: relative;
+        z-index: 1;
+      }
+      .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .wp-block-navigation {
+        background: var(--ucse-azul-oscuro);
+        padding: 0;
+        border-radius: 0;
+        margin: 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-out 0.2s both;
+      }
+      .nav-menu {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .nav-menu li { margin: 0; }
+      .nav-menu a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 15px 20px;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-bottom: 3px solid transparent;
+        position: relative;
+      }
+      .nav-menu a::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: var(--ucse-cian);
+        transition: width 0.3s ease;
+        z-index: 0;
+      }
+      .nav-menu a:hover::before,
+      .nav-menu a.active::before { width: 100%; }
+      .nav-menu a:hover {
+        background: var(--ucse-cian);
+        border-bottom-color: var(--ucse-amarillo);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(72, 191, 227, 0.4);
+      }
+      .nav-menu a.active {
+        background: var(--ucse-rosa);
+        border-bottom-color: var(--ucse-amarillo);
+        animation: pulse 2s ease-in-out infinite;
+      }
+      .nav-menu a span, .nav-menu a i { position: relative; z-index: 1; }
+      .content-section {
+        background: white;
+        padding: 30px;
+        margin: 20px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.8s ease-out 0.4s both;
+        transition: box-shadow 0.3s ease;
+      }
+      .content-section:hover { box-shadow: 0 4px 20px rgba(184, 67, 24, 0.15); }
+      .requirements-alert {
+        background: linear-gradient(135deg, var(--ucse-amarillo) 0%, #fae69d 100%);
+        color: var(--ucse-negro);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        border-left: 4px solid var(--ucse-rosa);
+        animation: slideInLeft 0.6s ease-out;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .requirements-alert:hover {
+        transform: translateX(5px);
+        box-shadow: 0 4px 15px rgba(244, 211, 94, 0.5);
+      }
+      .exercise-section {
+        background: #f8f9fa;
+        border: 2px solid var(--ucse-cian);
+        border-radius: 8px;
+        padding: 25px;
+        margin: 25px 0;
+        position: relative;
+        transition: all 0.3s ease;
+        animation: fadeIn 0.6s ease-out both;
+      }
+      .exercise-section:nth-child(1) { animation-delay: 0.1s; }
+      .exercise-section:nth-child(2) { animation-delay: 0.2s; }
+      .exercise-section:nth-child(3) { animation-delay: 0.3s; }
+      .exercise-section::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 4px;
+        background: linear-gradient(90deg, var(--ucse-cian), var(--ucse-amarillo), var(--ucse-rosa));
+        background-size: 200% 100%;
+        border-radius: 4px 4px 0 0;
+        animation: shimmer 3s linear infinite;
+      }
+      .exercise-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(72, 191, 227, 0.2);
+        border-color: var(--ucse-amarillo);
+      }
+      .exercise-title {
+        color: #2c3e50;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #ecf0f1;
+      }
+      .exercise-weight {
+        background: var(--ucse-cian);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        font-weight: bold;
+        margin-left: 10px;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+      .exercise-weight:hover {
+        background: var(--ucse-rosa);
+        transform: scale(1.1);
+        box-shadow: 0 2px 8px rgba(56, 102, 65, 0.4);
+      }
+      .wp-block-table {
+        margin: 20px 0;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .wp-block-table table { width: 100%; border-collapse: collapse; }
+      .wp-block-table th {
+        background: var(--ucse-cian);
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        transition: background 0.3s ease;
+      }
+      .wp-block-table th:hover { background: var(--ucse-azul-oscuro); }
+      .wp-block-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #ecf0f1;
+        transition: background 0.3s ease;
+      }
+      .wp-block-table tr:nth-child(even) { background: #f8f9fa; }
+      .wp-block-table tr:hover {
+        background: rgba(72, 191, 227, 0.1);
+        transform: scale(1.01);
+      }
+      .delivery-section {
+        background: linear-gradient(135deg, var(--ucse-cian) 0%, var(--ucse-azul-oscuro) 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 8px;
+        margin: 25px 0;
+        animation: fadeIn 0.8s ease-out;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .delivery-section:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(72, 191, 227, 0.3);
+      }
+      .delivery-section h2 { color: white; margin-top: 0; }
+      .grading-section {
+        background: linear-gradient(135deg, var(--ucse-rosa) 0%, #528c61 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 8px;
+        margin: 25px 0;
+        animation: fadeIn 0.8s ease-out;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .grading-section:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(56, 102, 65, 0.3);
+      }
+      .grading-section h2 { color: white; margin-top: 0; }
+      .grading-section .wp-block-table th { background: rgba(255, 255, 255, 0.2); color: white; }
+      .grading-section .wp-block-table td {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-bottom-color: rgba(255, 255, 255, 0.2);
+      }
+      .grading-section .wp-block-table tr:nth-child(even) { background: rgba(255, 255, 255, 0.05); }
+      .icon-text {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+        transition: transform 0.3s ease;
+      }
+      .icon-text:hover { transform: translateX(5px); }
+      .icon-text .dashicons, .icon-text i {
+        color: var(--ucse-cian);
+        font-size: 18px;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+      .icon-text:hover .dashicons, .icon-text:hover i {
+        color: var(--ucse-azul-oscuro);
+        transform: scale(1.2);
+      }
+      .footer-info {
+        background: var(--ucse-azul-oscuro);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        margin-top: 40px;
+        animation: fadeIn 1s ease-out;
+      }
+      .footer-info p { margin: 5px 0; }
+      @media (max-width: 768px) {
+        .header-ucse .logo { flex-direction: column; gap: 10px; }
+        .header-ucse .logo img { height: 60px; }
+        .header-ucse h1 { font-size: 2em; }
+        .nav-menu { flex-direction: column; }
+        .nav-menu a { justify-content: center; }
+        .content-section { padding: 20px; }
+      }
+      .test-cases-section {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        border-color: #333;
+      }
+      .test-cases-section h2 {
+        color: #fff;
+        border-bottom-color: #444;
+      }
+      .test-case-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+      .tab-btn {
+        background: #333;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        font-weight: bold;
+      }
+      .tab-btn.active, .tab-btn:hover {
+        background: var(--ucse-cian);
+      }
+      .test-case-content pre {
+        background: #000;
+        padding: 15px;
+        border-radius: 6px;
+        overflow-x: auto;
+        font-family: 'Consolas', 'Courier New', monospace;
+        color: #00ff00;
+        line-height: 1.5;
+      }
+      .user-input {
+        color: #fff;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header-ucse">
+      <div class="main-container">
+        <div class="logo">
+          <img src="public/unnamed.jpg" alt="Logo Universidad Católica de Santiago del Estero" />
+          <div>
+            <h1>Universidad Católica de Santiago del Estero</h1>
+            <div class="subtitle">Informática - Simulacro de Examen</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <div class="content-section">
+        <h1><i class="fas fa-wind"></i> Consignas - Tema 4 (Avatar)</h1>
+
+        <div class="requirements-alert">
+          <h2><i class="fas fa-exclamation-triangle"></i> Requisitos Generales</h2>
+          <div class="icon-text">
+            <i class="fas fa-star"></i>
+            <strong>Debes realizar como mínimo 60% del puntaje total (Nota 4 cuatro).</strong>
+          </div>
+          <div class="icon-text">
+            <i class="fas fa-user"></i>
+            <strong>Al principio del ejercicio mostrar por pantalla tu Apellido y Nombre.</strong>
+          </div>
+        </div>
+
+        <div class="exercise-section">
+          <h2><i class="fas fa-bars"></i> Menú Principal</h2>
+          <p>Realizar un programa que presente las siguientes opciones en un menú para asistir a Aang:</p>
+          <ol>
+            <li><strong>Viaje en Appa</strong></li>
+            <li><strong>Estudio de Pergaminos</strong></li>
+            <li><strong>Salir</strong></li>
+          </ol>
+          <div class="requirements-alert">
+            <div class="icon-text">
+              <i class="fas fa-info-circle"></i>
+              <strong>Nota:</strong> Si se selecciona una opción diferente a 1, 2 o 3, se deberá mostrar un mensaje de error y el menú se presentará nuevamente. Se finaliza solo con la opción 3.
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise-section">
+          <h2 class="exercise-title">
+            <i class="fas fa-cloud"></i> Ejercicio 1: Viajes en Appa
+            <span class="exercise-weight">45% del puntaje</span>
+          </h2>
+          <p>El equipo Avatar se mueve constantemente de reino en reino. Aang necesita calcular el total de horas de vuelo que Appa ha soportado hasta descansar.</p>
+          
+          <h3><i class="fas fa-edit"></i> Entrada de datos</h3>
+          <p>Se ingresa por cada viaje la <strong>cantidad de horas voladas</strong>. La carga de datos debe realizarse de forma repetitiva y finalizará de manera indeterminada cuando el usuario ingrese un valor de <strong>0</strong> (indicando que el bisonte volador va a dormir).</p>
+          
+          <h3><i class="fas fa-chart-bar"></i> Salidas requeridas</h3>
+          <p>Se debe calcular y mostrar por pantalla al final del proceso:</p>
+          <ol>
+            <li><strong>El número total de horas</strong> acumuladas en todos los vuelos.</li>
+            <li>Si volaron más de 50 horas, imprimir un mensaje extra: <strong>"¡Appa está exhausto, necesita muchas manzanas!"</strong>.</li>
+          </ol>
+        </div>
+
+        <div class="exercise-section">
+          <h2 class="exercise-title">
+            <i class="fas fa-book-open"></i> Ejercicio 2: Estudio de Pergaminos
+            <span class="exercise-weight">55% del puntaje</span>
+          </h2>
+          <p>Sokka está leyendo pergaminos en la biblioteca de Wan Shi Tong y quiere contabilizar su aprendizaje.</p>
+
+          <h3><i class="fas fa-edit"></i> Entrada de datos</h3>
+          <p>El programa debe pedirle a Sokka que ingrese la cantidad de pergaminos leídos en un estante. Luego de ingresar el valor, el programa debe preguntarle: <strong>"¿Desea seguir leyendo en otro estante? (S/N)"</strong>. El ciclo se repite mientras responda 'S'.</p>
+
+          <h3><i class="fas fa-chart-bar"></i> Salidas requeridas</h3>
+          <p>Se debe calcular y mostrar por pantalla:</p>
+          <ol>
+            <li><strong>El total de pergaminos leídos</strong> en la biblioteca.</li>
+            <li>Si el total le permite a Sokka aprender al menos una técnica nueva (considera que cada 10 pergaminos equivalen a 1 técnica nueva), mostrando un mensaje afirmativo, o de lo contrario motivarlo a leer más.</li>
+          </ol>
+        </div>
+
+        <div class="exercise-section test-cases-section">
+          <h2><i class="fas fa-terminal"></i> Casos de Prueba</h2>
+          <div class="test-case-tabs">
+            <button class="tab-btn active" onclick="showTestCase(1, 'tema4')">Caso de Prueba 1 (Appa)</button>
+            <button class="tab-btn" onclick="showTestCase(2, 'tema4')">Caso de Prueba 2 (Pergaminos)</button>
+          </div>
+          
+          <div id="tema4-test-case-1" class="test-case-content" style="display: block;">
+<pre><code>Avatar: Aang
+
+--- Menú Principal ---
+1. Viaje en Appa
+2. Estudio de Pergaminos
+3. Salir
+Ingrese opción: <span class="user-input">1</span>
+
+Viaje 1 - Ingrese horas voladas (0 para descansar): <span class="user-input">20</span>
+Viaje 2 - Ingrese horas voladas (0 para descansar): <span class="user-input">15</span>
+Viaje 3 - Ingrese horas voladas (0 para descansar): <span class="user-input">25</span>
+Viaje 4 - Ingrese horas voladas (0 para descansar): <span class="user-input">0</span>
+
+--- Resultados ---
+Total de horas de vuelo: 60
+¡Appa está exhausto, necesita muchas manzanas!
+
+--- Menú Principal ---
+1. Viaje en Appa
+2. Estudio de Pergaminos
+3. Salir
+Ingrese opción: <span class="user-input">3</span>
+Saliendo...</code></pre>
+          </div>
+
+          <div id="tema4-test-case-2" class="test-case-content" style="display: none;">
+<pre><code>Avatar: Aang
+
+--- Menú Principal ---
+1. Viaje en Appa
+2. Estudio de Pergaminos
+3. Salir
+Ingrese opción: <span class="user-input">2</span>
+
+Estante 1 - Ingrese cantidad de pergaminos leídos: <span class="user-input">8</span>
+¿Desea seguir leyendo en otro estante? (S/N): <span class="user-input">S</span>
+Estante 2 - Ingrese cantidad de pergaminos leídos: <span class="user-input">5</span>
+¿Desea seguir leyendo en otro estante? (S/N): <span class="user-input">N</span>
+
+--- Resultados ---
+Total de pergaminos leídos: 13
+¡Felicidades! Aprendiste una nueva técnica.
+
+--- Menú Principal ---
+1. Viaje en Appa
+2. Estudio de Pergaminos
+3. Salir
+Ingrese opción: <span class="user-input">3</span>
+Saliendo...</code></pre>
+          </div>
+        </div>
+
+        <div class="delivery-section">
+          <h2><i class="fas fa-upload"></i> Entrega</h2>
+          <div class="icon-text">
+            <i class="fas fa-file-code"></i>
+            <div>
+              <strong>El nombre del archivo Python debe ser:</strong>
+              <code>ApellidoNombre_Tema4.py</code><br />
+              <strong>Ejemplo:</strong> AangAvatar_Tema4.py
+            </div>
+          </div>
+        </div>
+
+        <div class="grading-section">
+          <h2><i class="fas fa-trophy"></i> Valoración</h2>
+          <div class="wp-block-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Opción</th>
+                  <th>Porcentaje</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Ejercicio 1</strong> - Appa</td>
+                  <td>45%</td>
+                </tr>
+                <tr>
+                  <td><strong>Ejercicio 2</strong> - Pergaminos</td>
+                  <td>55%</td>
+                </tr>
+                <tr>
+                  <td><strong>TOTAL</strong></td>
+                  <td><strong>100%</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer-info">
+      <div class="main-container">
+        <p><strong>Universidad Católica de Santiago del Estero</strong></p>
+        <p>Tecnicatura Universitaria en Automatización y Robótica - Informática</p>
+        <p>Simulacro Tema 4 - Avatar</p>
+      </div>
+    </footer>
+    <script>
+      function showTestCase(caseNumber, themePrefix) {
+        document.querySelectorAll(`[id^="${themePrefix}-test-case-"]`).forEach(el => {
+          el.style.display = 'none';
+        });
+        const section = document.querySelector(`#${themePrefix}-test-case-1`).closest('.test-cases-section');
+        section.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        document.getElementById(`${themePrefix}-test-case-${caseNumber}`).style.display = 'block';
+        event.currentTarget.classList.add('active');
+      }
+    </script>
+  </body>
+</html>
